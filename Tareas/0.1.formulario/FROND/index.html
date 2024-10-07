@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Datos</title>
+    <link rel="stylesheet" href="../style/estilos.css">
+</head>
+<body>
+    <h2>Formulario de datos</h2>
+    <hr>
+    <br>
+    <form action="../BACKEND/index.php" method="POST">
+        <!-- Ingreso de tu nombre completo (text) -->
+        <label for="nombre">Nombre completo:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <br><br>
+
+        <!-- Selección de tu carrera (select simple) -->
+        <label for="carrera">Selecciona tu carrera:</label>
+        <select id="carrera" name="carrera" required>
+            <option value="Licenciatura en Ciencias de la Computación">
+                Licenciatura en Ciencias de la Computación</option>
+            <option value="Licenciatura en Ingeniería en Ciencias de la Computación">
+                Licenciatura en Ingeniería en Ciencias de la Computación</option>
+            <option value="Licenciatura en Ingeniería en Tecnologías de la Información">
+                Licenciatura en Ingeniería en Tecnologías de la Información</option>
+            <option value="Ingeniería en Ciberseguridad">
+                Ingeniería en Ciberseguridad</option>
+            <option value="Ingeniería en Ciencias de Datos">
+                Ingeniería en Ciencias de Datos</option>
+        </select>
+        <br><br>
+
+        <!-- Método de titulación (radio) con imágenes -->
+        <label>Método de titulación:</label><br>
+        <div class="radio-container">
+            <div class="radio-item">
+                <img src="../img/tesis.jpg" alt="Tesis" width="50">
+                <input type="radio" id="tesis" name="titulacion" value="Tesis" required>
+                <label for="tesis">Tesis</label>
+            </div>
+            <div class="radio-item">
+                <img src="../img/nota.jpg" alt="Promedio" width="50">
+                <input type="radio" id="promedio" name="titulacion" value="Promedio" required>
+                <label for="promedio">Promedio</label>
+            </div>
+            <div class="radio-item">
+                <img src="../img/experiencia.jpg" alt="Experiencia profesional" width="50">
+                <input type="radio" id="experiencia" name="titulacion" value="Experiencia profesional" required>
+                <label for="experiencia">Experiencia profesional</label>
+            </div>
+            <div class="radio-item">
+                <img src="../img/senegal.jpg" alt="Examen de senegal" width="50">
+                <input type="radio" id="senegal" name="titulacion" value="Examen de senegal" required>
+                <label for="senegal">Examen de senegal</label>
+            </div>
+        </div>
+        <br>
+
+        <!-- Enviar datos (button) -->
+        <input type="submit" name="enviar" value="Enviar">
+    </form>
+</body>
+</html>

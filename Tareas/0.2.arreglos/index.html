@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operaciones de Conjuntos</title>
+</head>
+<body>
+    <h2>Generador de Conjuntos Aleatorios</h2>
+    <hr>
+    <br>
+    <form action="operacionesConjuntos.php" method="POST">
+        <!-- Ingrese la cantidad de datos para el primer conjunto -->
+        <label for="cantidad_conjunto1">Cantidad de datos del Conjunto 1:</label>
+        <input type="number" id="cantidad_conjunto1" name="cantidad_conjunto1" min="1" max="20" required>
+        <br><br>
+
+        <!-- Ingrese la cantidad de datos para el segundo conjunto -->
+        <label for="cantidad_conjunto2">Cantidad de datos del Conjunto 2:</label>
+        <input type="number" id="cantidad_conjunto2" name="cantidad_conjunto2" min="1" max="20" required>
+        <br><br>
+
+        <!-- Botón para generar los conjuntos y realizar las operaciones -->
+        <input type="submit" name="generar" value="Generar Conjuntos y Mostrar Operaciones">
+    </form>
+</body>
+</html>
