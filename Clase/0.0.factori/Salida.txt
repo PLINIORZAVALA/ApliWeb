@@ -1,0 +1,1 @@
+El factorial de 10 = 3628800 
