@@ -1,38 +1,39 @@
 <html>
-<head> <title> Seleccion Personas</title> </head>
+<head>
+    <title> Selección de Personas</title>
+</head>
 <body>
-<h2> Lista de Personas </h2>
-<hr>
-<?PHP
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  // Recibir el valor de dato_mascota
-  $dm = $_POST['dato_mascota'];
+    <h2>Lista de Personas</h2>
+    <hr>
+    <?PHP
+        $link = mysqli_connect("localhost", "root", "", "adopciones");
+        if (!$link) {
+            die('Error de conexión: ' . mysqli_connect_error());
+        }
 
-  // Conectar a la base de datos
-  $link = mysqli_connect("localhost", "root", "");
-  mysqli_select_db($link, "adopciones");
+        $resultado = mysqli_query($link, "SELECT * FROM personas");
+        if (!$resultado) {
+            die('Error en la consulta: ' . mysqli_error($link));
+        }
 
-  // Obtener la lista de personas
-  $resultado = mysqli_query($link, "SELECT id_persona, nombre FROM personas");
+        echo "<table border='1'>";
+        echo "<tr><td>ID_persona</td><td>Nombre</td><td>Adoptador</td></tr>";
 
-  // Comenzar el formulario
-  echo '<form action="listAdoptados.php" method="POST">';
-  
-  // Agregar el campo oculto con el valor de la mascota
-  echo '<input type="hidden" name="dato_mascota" value="' . $dm . '">';
+        while ($reg = mysqli_fetch_array($resultado)) {
+            $id = $reg['id_persona'];
+            $nombre = $reg['nombre'];
 
-  // Mostrar el select para elegir una persona
-  echo '<select name="dato_persona">';
-  while ($ren = mysqli_fetch_array($resultado)) {
-      echo '<option value="' . $ren["id_persona"] . '">' . $ren["id_persona"] . "->" . $ren["nombre"] . '</option>';
-  }
-  echo '</select>';
-  echo '<br><br>';
+            echo "<tr>";
+            echo "<td>$id</td><td>$nombre</td>";
+            // Enlace para modificar la persona
+            echo "<td><a href='listAdoptados.php?nombre=$nombre'>Seleccionar</a></td>";
+            echo "</tr>";
+        }
 
-  // Botón para enviar el formulario
-  echo '<input type="submit" value="Enviar">';
-  echo '</form>';
-}
-?>
+        echo "</table>";
+
+        mysqli_close($link);
+    ?>
 </body>
 </html>
+

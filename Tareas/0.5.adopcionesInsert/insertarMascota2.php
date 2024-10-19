@@ -1,3 +1,4 @@
+Este proeceso se realiza despues del archivo insertarMascotas.php
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Solo procesar si el formulario ha sido enviado
