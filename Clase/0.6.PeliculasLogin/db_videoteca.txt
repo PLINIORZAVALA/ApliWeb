@@ -1,0 +1,68 @@
+-- Base de datos inicial de la aplicacion
+-- Eliminar la base de datos si existe y luego crearla
+DROP DATABASE IF EXISTS videoteca;
+CREATE DATABASE videoteca;
+USE videoteca;
+
+-- Eliminar la tabla 'pelicula' si existe y luego crearla
+DROP TABLE IF EXISTS pelicula;
+CREATE TABLE pelicula (
+  id_pelicula INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  titulo VARCHAR(64) NOT NULL,
+  director VARCHAR(128) NOT NULL,
+  actor VARCHAR(128) NOT NULL
+);
+
+-- Eliminar la tabla 'clientes' si existe y luego crearla
+DROP TABLE IF EXISTS clientes;
+CREATE TABLE clientes (
+  id_cliente INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  cliente VARCHAR(64) NOT NULL,
+  year INT
+);
+
+-- Eliminar la tabla 'rentas' si existe y luego crearla
+DROP TABLE IF EXISTS rentas;
+CREATE TABLE rentas (
+  id_renta INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id_cliente INT NOT NULL,
+  id_pelicula INT NOT NULL,
+  fecha_inicio DATE,
+  fecha_fin DATE,
+  FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
+  FOREIGN KEY (id_pelicula) REFERENCES pelicula(id_pelicula)
+);
+
+-- Insertar datos en la tabla 'pelicula'
+INSERT INTO pelicula (titulo, director, actor) VALUES ('Blade Runner', 'Ridley Scott', 'Harrison Ford');
+INSERT INTO pelicula (titulo, director, actor) VALUES ('Alien', 'Ridley Scott', 'Sigourney Weaver');
+INSERT INTO pelicula (titulo, director, actor) VALUES ('Doce monos', 'Terry Gilliam', 'Bruce Willis');
+INSERT INTO pelicula (titulo, director, actor) VALUES ('Contact', 'Robert Zemeckis', 'Jodie Foster');
+INSERT INTO pelicula (titulo, director, actor) VALUES ('Tron', 'Steven Lisberger', 'Jeff Bridges');
+INSERT INTO pelicula (titulo, director, actor) VALUES ('La guerra de las galaxias', 'George Lucas', 'Harrison Ford');
+
+-- Insertar datos en la tabla 'clientes'
+INSERT INTO clientes (cliente, year) VALUES ('Jorge Perez', 1980);
+INSERT INTO clientes (cliente, year) VALUES ('Juan Dominguez', 1950);
+INSERT INTO clientes (cliente, year) VALUES ('Jose Luis Lopez', 1967);
+
+-- Insertar datos en la tabla 'rentas'
+INSERT INTO rentas (id_cliente, id_pelicula, fecha_inicio, fecha_fin)
+SELECT clientes.id_cliente, pelicula.id_pelicula, CURDATE(), CURDATE() + INTERVAL 2 DAY
+FROM clientes, pelicula
+WHERE clientes.cliente = 'Jorge Perez' AND pelicula.titulo = 'Tron';
+
+INSERT INTO rentas (id_cliente, id_pelicula, fecha_inicio, fecha_fin)
+SELECT clientes.id_cliente, pelicula.id_pelicula, CURDATE(), CURDATE() + INTERVAL 2 DAY
+FROM clientes, pelicula
+WHERE clientes.cliente = 'Jorge Perez' AND pelicula.titulo = 'Doce monos';
+
+INSERT INTO rentas (id_cliente, id_pelicula, fecha_inicio, fecha_fin)
+SELECT clientes.id_cliente, pelicula.id_pelicula, CURDATE(), CURDATE() + INTERVAL 2 DAY
+FROM clientes, pelicula
+WHERE clientes.cliente = 'Jorge Perez' AND pelicula.titulo = 'Contact';
+
+INSERT INTO rentas (id_cliente, id_pelicula, fecha_inicio, fecha_fin)
+SELECT clientes.id_cliente, pelicula.id_pelicula, CURDATE(), CURDATE() + INTERVAL 2 DAY
+FROM clientes, pelicula
+WHERE clientes.cliente = 'Juan Dominguez' AND pelicula.titulo = 'Contact';

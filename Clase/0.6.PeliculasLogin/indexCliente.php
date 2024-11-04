@@ -34,7 +34,7 @@
       <p>&nbsp;    </p>
     </div>
     <div id="content">
-      <h3>Benvenidos Cliente</h3>
+      <h3>Bienvenido Cliente</h3>
       <p>Esta pagina provee de las peliculas nacionales e internacionales de mayor exito en taquillas. Te invitamos a ser parte de este sistema registrando tus datos en la opci&oacute;n de &quot;Registro&quot;.</p>
       <p><img src="MisImagenes/imagen5.jpg" width="81" height="125" /> <img src="MisImagenes/imagen2.jpg" width="95" height="124" /> <img src="MisImagenes/imagen6.jpg" width="101" height="124" /></p>
       <p>Que disfrutes de las peliculas...</p>
