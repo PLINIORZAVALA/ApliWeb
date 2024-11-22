@@ -1,0 +1,256 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| adopciones         |
+| constructora       |
+| db_construct       |
+| db_constructora    |
+| db_pagweb          |
+| empresa_iocsa      |
+| event              |
+| gestion_eventos    |
+| gestion_facturas   |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| vidioteca          |
++--------------------+
+14 rows in set (0.03 sec)
+
+mysql> use vidioteca
+Database changed
+mysql> ;
+ERROR:
+No query specified
+
+mysql> use vidioteca;
+Database changed
+mysql> show tables;
++---------------------+
+| Tables_in_vidioteca |
++---------------------+
+| clientes            |
+| pelicula            |
+| rentas              |
++---------------------+
+3 rows in set (0.02 sec)
+
+mysql> select * from clientes;
++------------+----------------+--------------------------+-------------+------+
+| id_cliente | cliente        | usuario                  | password    | tipo |
++------------+----------------+--------------------------+-------------+------+
+|          1 | Carlos Pérez   | carlos.perez@email.com   | password123 |    1 |
+|          2 | María Gómez    | maria.gomez@email.com    | pass456     |    0 |
+|          3 | Juan López     | juan.lopez@email.com     | qwerty789   |    2 |
+|          4 | Ana Martínez   | ana.martinez@email.com   | anaPassword |    0 |
+|          5 | Luis Hernández | luis.hernandez@email.com | passLuis    |    0 |
+|          6 | Sofía Morales  | sofia.morales@email.com  | sofiaPass   |    0 |
+|          7 | Jorge Torres   | jorge.torres@email.com   | jorge123    |    1 |
++------------+----------------+--------------------------+-------------+------+
+7 rows in set (0.01 sec)
+
+mysql> select * from pelicula;
++-------------+------------------+----------------------+-------------------+-------------+
+| id_pelicula | titulo           | director             | actor             | imagen      |
++-------------+------------------+----------------------+-------------------+-------------+
+|           1 | The Matris       | Lana Wachowski       | Keanu Reeves      | imagen1.jpg |
+|           2 | Inception        | Christopher No       | Leonardo DiCaprio | imagen2.jpg |
+|           3 | The Godfather    | Francis Ford Coppola | Al Pacinol        | imagen3.jpg |
+|           4 | Pulp Fiction     | Quentin Tarantino    | John Travolta     | imagen4.jpg |
+|           5 | The Dark Knight  | Christopher Nolan    | Christian Bale    | imagen5.jpg |
+|           6 | Fight Club       | David Fincher        | Brad Pitt         | imagen6.jpg |
+|           7 | Forrest Gump     | Robert Zemeckis      | Tom Hanks         | imagen7.jpg |
+|          12 | Denis Villeneuve | Denis Villeneuve     | Ryan Gosling      | OIP.jpeg    |
++-------------+------------------+----------------------+-------------------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from rentas;
++--------------+------------+------------+-------------+
+| fecha_inicio | fecha_fin  | id_cliente | id_pelicula |
++--------------+------------+------------+-------------+
+| 2024-09-28   | 2024-09-30 |          1 |           1 |
+| 2024-09-28   | 2024-09-30 |          2 |           2 |
+| 2024-09-28   | 2024-09-30 |          3 |           3 |
+| 2024-09-28   | 2024-09-30 |          4 |           4 |
+| 2024-09-28   | 2024-09-30 |          5 |           5 |
+| 2024-09-28   | 2024-09-30 |          6 |           6 |
+| 2024-09-28   | 2024-09-30 |          7 |           7 |
++--------------+------------+------------+-------------+
+7 rows in set (0.01 sec)
+
+mysql> CREATE PROCEDURE ver()
+    -> SELECT * FROM pelicula;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CALL ver();
++-------------+------------------+----------------------+-------------------+-------------+
+| id_pelicula | titulo           | director             | actor             | imagen      |
++-------------+------------------+----------------------+-------------------+-------------+
+|           1 | The Matris       | Lana Wachowski       | Keanu Reeves      | imagen1.jpg |
+|           2 | Inception        | Christopher No       | Leonardo DiCaprio | imagen2.jpg |
+|           3 | The Godfather    | Francis Ford Coppola | Al Pacinol        | imagen3.jpg |
+|           4 | Pulp Fiction     | Quentin Tarantino    | John Travolta     | imagen4.jpg |
+|           5 | The Dark Knight  | Christopher Nolan    | Christian Bale    | imagen5.jpg |
+|           6 | Fight Club       | David Fincher        | Brad Pitt         | imagen6.jpg |
+|           7 | Forrest Gump     | Robert Zemeckis      | Tom Hanks         | imagen7.jpg |
+|          12 | Denis Villeneuve | Denis Villeneuve     | Ryan Gosling      | OIP.jpeg    |
++-------------+------------------+----------------------+-------------------+-------------+
+8 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> DELIMITER //;
+mysql> SELECT * FROM pelicula;
+    -> //
+    ->
+    -> //;
++-------------+------------------+----------------------+-------------------+-------------+
+| id_pelicula | titulo           | director             | actor             | imagen      |
++-------------+------------------+----------------------+-------------------+-------------+
+|           1 | The Matris       | Lana Wachowski       | Keanu Reeves      | imagen1.jpg |
+|           2 | Inception        | Christopher No       | Leonardo DiCaprio | imagen2.jpg |
+|           3 | The Godfather    | Francis Ford Coppola | Al Pacinol        | imagen3.jpg |
+|           4 | Pulp Fiction     | Quentin Tarantino    | John Travolta     | imagen4.jpg |
+|           5 | The Dark Knight  | Christopher Nolan    | Christian Bale    | imagen5.jpg |
+|           6 | Fight Club       | David Fincher        | Brad Pitt         | imagen6.jpg |
+|           7 | Forrest Gump     | Robert Zemeckis      | Tom Hanks         | imagen7.jpg |
+|          12 | Denis Villeneuve | Denis Villeneuve     | Ryan Gosling      | OIP.jpeg    |
++-------------+------------------+----------------------+-------------------+-------------+
+8 rows in set (0.00 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '//' at line 1
+mysql> DELIMITER //
+mysql> SELECT * FROM pelicula//
++-------------+------------------+----------------------+-------------------+-------------+
+| id_pelicula | titulo           | director             | actor             | imagen      |
++-------------+------------------+----------------------+-------------------+-------------+
+|           1 | The Matris       | Lana Wachowski       | Keanu Reeves      | imagen1.jpg |
+|           2 | Inception        | Christopher No       | Leonardo DiCaprio | imagen2.jpg |
+|           3 | The Godfather    | Francis Ford Coppola | Al Pacinol        | imagen3.jpg |
+|           4 | Pulp Fiction     | Quentin Tarantino    | John Travolta     | imagen4.jpg |
+|           5 | The Dark Knight  | Christopher Nolan    | Christian Bale    | imagen5.jpg |
+|           6 | Fight Club       | David Fincher        | Brad Pitt         | imagen6.jpg |
+|           7 | Forrest Gump     | Robert Zemeckis      | Tom Hanks         | imagen7.jpg |
+|          12 | Denis Villeneuve | Denis Villeneuve     | Ryan Gosling      | OIP.jpeg    |
++-------------+------------------+----------------------+-------------------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> CREATE PROCEDURE todas()
+    -> BEGIN
+    -> SELECT * FROM pelicula;
+    -> select * from rentas;
+    -> select * from clientes;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CALL todas()//
++-------------+------------------+----------------------+-------------------+-------------+
+| id_pelicula | titulo           | director             | actor             | imagen      |
++-------------+------------------+----------------------+-------------------+-------------+
+|           1 | The Matris       | Lana Wachowski       | Keanu Reeves      | imagen1.jpg |
+|           2 | Inception        | Christopher No       | Leonardo DiCaprio | imagen2.jpg |
+|           3 | The Godfather    | Francis Ford Coppola | Al Pacinol        | imagen3.jpg |
+|           4 | Pulp Fiction     | Quentin Tarantino    | John Travolta     | imagen4.jpg |
+|           5 | The Dark Knight  | Christopher Nolan    | Christian Bale    | imagen5.jpg |
+|           6 | Fight Club       | David Fincher        | Brad Pitt         | imagen6.jpg |
+|           7 | Forrest Gump     | Robert Zemeckis      | Tom Hanks         | imagen7.jpg |
+|          12 | Denis Villeneuve | Denis Villeneuve     | Ryan Gosling      | OIP.jpeg    |
++-------------+------------------+----------------------+-------------------+-------------+
+8 rows in set (0.00 sec)
+
++--------------+------------+------------+-------------+
+| fecha_inicio | fecha_fin  | id_cliente | id_pelicula |
++--------------+------------+------------+-------------+
+| 2024-09-28   | 2024-09-30 |          1 |           1 |
+| 2024-09-28   | 2024-09-30 |          2 |           2 |
+| 2024-09-28   | 2024-09-30 |          3 |           3 |
+| 2024-09-28   | 2024-09-30 |          4 |           4 |
+| 2024-09-28   | 2024-09-30 |          5 |           5 |
+| 2024-09-28   | 2024-09-30 |          6 |           6 |
+| 2024-09-28   | 2024-09-30 |          7 |           7 |
++--------------+------------+------------+-------------+
+7 rows in set (0.05 sec)
+
++------------+----------------+--------------------------+-------------+------+
+| id_cliente | cliente        | usuario                  | password    | tipo |
++------------+----------------+--------------------------+-------------+------+
+|          1 | Carlos Pérez   | carlos.perez@email.com   | password123 |    1 |
+|          2 | María Gómez    | maria.gomez@email.com    | pass456     |    0 |
+|          3 | Juan López     | juan.lopez@email.com     | qwerty789   |    2 |
+|          4 | Ana Martínez   | ana.martinez@email.com   | anaPassword |    0 |
+|          5 | Luis Hernández | luis.hernandez@email.com | passLuis    |    0 |
+|          6 | Sofía Morales  | sofia.morales@email.com  | sofiaPass   |    0 |
+|          7 | Jorge Torres   | jorge.torres@email.com   | jorge123    |    1 |
++------------+----------------+--------------------------+-------------+------+
+7 rows in set (0.09 sec)
+
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> DELIMITER //
+mysql> CREATE TRIGGER BIP
+    -> BEFORE INSERT ON pelicula
+    -> FOR EACH ROW
+    -> BEGIN
+    -> SET NEW.actor='Brad Pitt';
+    -> END;
+    -> //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM pelicula//
++-------------+------------------+----------------------+-------------------+-------------+
+| id_pelicula | titulo           | director             | actor             | imagen      |
++-------------+------------------+----------------------+-------------------+-------------+
+|           1 | The Matris       | Lana Wachowski       | Keanu Reeves      | imagen1.jpg |
+|           2 | Inception        | Christopher No       | Leonardo DiCaprio | imagen2.jpg |
+|           3 | The Godfather    | Francis Ford Coppola | Al Pacinol        | imagen3.jpg |
+|           4 | Pulp Fiction     | Quentin Tarantino    | John Travolta     | imagen4.jpg |
+|           5 | The Dark Knight  | Christopher Nolan    | Christian Bale    | imagen5.jpg |
+|           6 | Fight Club       | David Fincher        | Brad Pitt         | imagen6.jpg |
+|           7 | Forrest Gump     | Robert Zemeckis      | Tom Hanks         | imagen7.jpg |
+|          12 | Denis Villeneuve | Denis Villeneuve     | Ryan Gosling      | OIP.jpeg    |
++-------------+------------------+----------------------+-------------------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> INSERT INTO pelicula (titulo,director,actor,imagen) VALUES(The Lark, Lana de Paul, Rom Feir,'NULL')//
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Lark, Lana de Paul, Rom Feir,'NULL')' at line 1
+mysql> INSERT INTO pelicula (id_pelicula, titulo, director, actor, imagen)
+    -> VALUES (2, 'Inception', 'Christopher Nolan', 'Leonardo DiCaprio', 'imagen2.jpg');
+    -> //
+ERROR 1062 (23000): Duplicate entry '2' for key 'pelicula.PRIMARY'
+mysql> INSERT INTO pelicula (titulo, director, actor, imagen) VALUES ('Inception', 'Christopher Nolan', 'Leonardo DiCaprio', 'imagen2.jpg');
+    -> //
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM pelicula//
++-------------+------------------+----------------------+-------------------+-------------+
+| id_pelicula | titulo           | director             | actor             | imagen      |
++-------------+------------------+----------------------+-------------------+-------------+
+|           1 | The Matris       | Lana Wachowski       | Keanu Reeves      | imagen1.jpg |
+|           2 | Inception        | Christopher No       | Leonardo DiCaprio | imagen2.jpg |
+|           3 | The Godfather    | Francis Ford Coppola | Al Pacinol        | imagen3.jpg |
+|           4 | Pulp Fiction     | Quentin Tarantino    | John Travolta     | imagen4.jpg |
+|           5 | The Dark Knight  | Christopher Nolan    | Christian Bale    | imagen5.jpg |
+|           6 | Fight Club       | David Fincher        | Brad Pitt         | imagen6.jpg |
+|           7 | Forrest Gump     | Robert Zemeckis      | Tom Hanks         | imagen7.jpg |
+|          12 | Denis Villeneuve | Denis Villeneuve     | Ryan Gosling      | OIP.jpeg    |
+|          14 | Inception        | Christopher Nolan    | Brad Pitt         | imagen2.jpg |
++-------------+------------------+----------------------+-------------------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT * FROM pelicula//
++-------------+------------------+----------------------+-------------------+-------------+
+| id_pelicula | titulo           | director             | actor             | imagen      |
++-------------+------------------+----------------------+-------------------+-------------+
+|           1 | The Matris       | Lana Wachowski       | Keanu Reeves      | imagen1.jpg |
+|           2 | Inception        | Christopher No       | Leonardo DiCaprio | imagen2.jpg |
+|           3 | The Godfather    | Francis Ford Coppola | Al Pacinol        | imagen3.jpg |
+|           4 | Pulp Fiction     | Quentin Tarantino    | John Travolta     | imagen4.jpg |
+|           5 | The Dark Knight  | Christopher Nolan    | Christian Bale    | imagen5.jpg |
+|           6 | Fight Club       | David Fincher        | Brad Pitt         | imagen6.jpg |
+|           7 | Forrest Gump     | Robert Zemeckis      | Tom Hanks         | imagen7.jpg |
+|          12 | Denis Villeneuve | Denis Villeneuve     | Ryan Gosling      | OIP.jpeg    |
+|          14 | Inception        | Christopher Nolan    | Brad Pitt         | imagen2.jpg |
++-------------+------------------+----------------------+-------------------+-------------+
+9 rows in set (0.00 sec)
